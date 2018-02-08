@@ -670,11 +670,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/kizz/Desktop/AI Lab1/AI_Lab1/AI_Lab1.csproj",
+      "projectUniqueName": "/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab1/AI_Lab1.csproj",
       "projectName": "AI_Lab1",
-      "projectPath": "/home/kizz/Desktop/AI Lab1/AI_Lab1/AI_Lab1.csproj",
+      "projectPath": "/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab1/AI_Lab1.csproj",
       "packagesPath": "/home/kizz/.nuget/packages/",
-      "outputPath": "/home/kizz/Desktop/AI Lab1/AI_Lab1/obj/",
+      "outputPath": "/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab1/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"

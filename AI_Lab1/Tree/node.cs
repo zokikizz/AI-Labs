@@ -44,12 +44,4 @@ namespace TREE
                 }
         }
     }
-
-    public class Tree
-    {
-        public Node root { get; set; }
-
-        public Tree(Node Root) { root = Root; }
-
-    }
 }

@@ -6,9 +6,8 @@ using Item;
 
 namespace SearchingAlgorithms
 {
-    public class BFS
+    public class Algorithms
     {
-        public Tree tree;
         public List<item> listOfItems = new List<item>();
         public Backpack backpack;
 
@@ -21,7 +20,7 @@ namespace SearchingAlgorithms
         public Node bestBenefitDFS = null;
         
 
-        public BFS(List<item> lOfItems, Backpack UserBackPack) {
+        public Algorithms(List<item> lOfItems, Backpack UserBackPack) {
             this.listOfItems = lOfItems;
 
             this.backpack = UserBackPack;
