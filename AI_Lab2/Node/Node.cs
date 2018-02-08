@@ -18,7 +18,7 @@ namespace Structures
     public class Graph
     {
 
-        public List<Node> MyProperty { get; set; }
+        public List<Node> listOfNodes { get; set; }
         
         public Node Start { get; set; }
 
@@ -31,7 +31,7 @@ namespace Structures
 
         public void AStar()
         {
-            
+
         }
     }
 
