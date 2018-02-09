@@ -20,8 +20,9 @@ namespace AI_Lab1
             
             IO.Reader("./Items.txt", listOfItems, backpack); // loading list and backpack
 
-            Console.WriteLine(backpack.Dimensions + " " + backpack.MaxWeight + " " + listOfItems.Count);
+            Console.WriteLine("Backpack dimension: " + backpack.Dimensions + "\nMax. kg: " + backpack.MaxWeight + "\nNumber of items: " + listOfItems.Count);
 
+            Console.WriteLine("Items:");
            for(int i = 0; i < listOfItems.Count; i++)
            {
                Console.WriteLine(listOfItems[i].Id + " " + " " + listOfItems[i].Benefit + " " + listOfItems[i].Weigth);
