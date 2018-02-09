@@ -1,1 +1,1 @@
-#AI Lab assignmenets
+# AI Lab assignmenets
