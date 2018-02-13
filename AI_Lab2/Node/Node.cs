@@ -18,7 +18,10 @@ namespace Structures
         
         public int totalCost = 0;
 
+        public bool isItBFSAlgorithm;
+
         public Node cameFrom { get; set; }
+
         public Node() { this.Edges = new List<Edge>(); this.cameFrom = null; }
 
         public string cityName { get; set; }
@@ -28,7 +31,14 @@ namespace Structures
         public int CompareTo(Object n)
         {
             Node j = (Node) n;
-            return this.heurisitc - j.heurisitc;
+            if(this.isItBFSAlgorithm)
+            {
+                return this.heurisitc - j.heurisitc;
+            }
+            else 
+            {
+                return (totalCost + this.heurisitc) - (j.totalCost + j.heurisitc);
+            }
         }
 
         public override string ToString()
@@ -111,6 +121,9 @@ namespace Structures
         public void GreedyBFS()
         {
 
+            foreach(Node n in this.listOfNodes)
+                n.isItBFSAlgorithm = true;
+
             queue.Enqueue(this.Start);
             this.Start.cameFrom = this.Start;
             this.Start.totalCost = 0;
@@ -153,6 +166,10 @@ namespace Structures
                 
         public void AStar()
         {
+
+            foreach(Node n in this.listOfNodes)
+                n.isItBFSAlgorithm = false;
+
             queue.Enqueue(this.Start);
             this.Start.cameFrom = this.Start;
             this.Start.totalCost = 0;
@@ -172,7 +189,7 @@ namespace Structures
                     int newCost = current.totalCost + el.Cost;
                     if(next.cameFrom == null || (newCost < next.totalCost))
                     {
-                        next.totalCost = newCost + next.heurisitc;
+                        next.totalCost = newCost;
                         next.cameFrom = current;
                         queue.Enqueue(next);
                     }
