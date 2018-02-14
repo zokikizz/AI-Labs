@@ -12,14 +12,10 @@ namespace AI_Lab2
             ReadFromFile("SpainMap.txt", graph);
 
 
-            var watch = System.Diagnostics.Stopwatch.StartNew();
             graph.GreedyBFS();
-            watch.Stop();
             
             
             Console.WriteLine();
-
-            Console.WriteLine("Execution time for Greedy BFS:" + watch.ElapsedMilliseconds);
 
             Console.WriteLine("Results of Greedy BFS:");
 
@@ -37,13 +33,9 @@ namespace AI_Lab2
             graph.Clean();
 
             
-            var watch1 = System.Diagnostics.Stopwatch.StartNew();
             graph.AStar();
-            watch.Stop();
             
             Console.WriteLine();
-
-            Console.WriteLine("Execution time for AStar:" + watch1.ElapsedMilliseconds);
 
             
             Console.WriteLine("Results of Astar:");
