@@ -70,6 +70,11 @@ namespace Structures
         public void Enqueue(T obj)
         {
             this.data.Add(obj);
+        //    this.data.Sort();
+        }
+
+        public void Sort()
+        {
             this.data.Sort();
         }
 
@@ -128,19 +133,33 @@ namespace Structures
             this.Start.cameFrom = this.Start;
             this.Start.totalCost = 0;
 
+            Console.WriteLine("Alg:");
             Node current;
+            int i = 0;
             while( queue.Count() > 0)
             {
                 current = queue.Peek();
                 queue.Dequeue();
+
+                if(current.cameFrom != null)
+                    Console.WriteLine(++i + " " + current.cityName + " total cost: " + current.totalCost + " " + " parent: " + current.cameFrom);
 
                 if( current == this.Destination)
                     break;
 
                 foreach(Edge el in current.Edges)
                 {
+
                     Node next = el.Nodes.Find(x => x.cityName != current.cityName);
-                    if(next.cameFrom == null)
+                 
+
+                    if(current.cityName == "Caceres")
+                    {
+                        Console.WriteLine(current.Edges.Count);
+                        Console.WriteLine(next);   
+                    }
+
+                    if(next.cameFrom == null || (next.totalCost > (current.totalCost+el.Cost)))
                     {
                         next.totalCost = current.totalCost + el.Cost;
                         next.cameFrom = current;
@@ -148,21 +167,13 @@ namespace Structures
                     }
                 }
 
+                queue.Sort();
                 //queue.print();
             }
 
 
 
         }
-
-
-        // for next in graph.neighbors(current):
-        //     new_cost = cost_so_far[current] + graph.cost(current, next)
-        //     if next not in cost_so_far or new_cost < cost_so_far[next]:
-        //         cost_so_far[next] = new_cost
-        //         priority = new_cost + heuristic(goal, next)
-        //         frontier.put(next, priority)
-        //         came_from[next] = current
                 
         public void AStar()
         {
@@ -175,6 +186,7 @@ namespace Structures
             this.Start.totalCost = 0;
 
             Node current;
+
             while( queue.Count() > 0)
             {
                 current = queue.Peek();
@@ -195,6 +207,7 @@ namespace Structures
                     }
                 }
 
+                queue.Sort();
                 //queue.print();
             }
 

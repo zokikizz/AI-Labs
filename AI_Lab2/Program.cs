@@ -17,17 +17,17 @@ namespace AI_Lab2
             
             Console.WriteLine();
 
-            Console.WriteLine("Results of Greedy BFS:");
+            Console.WriteLine(" Results of Greedy BFS:");
 
 
             Node current = graph.Destination;
             while(current.cameFrom != current)
             {
-                Console.WriteLine("City name: " + current.cityName + " total cost: " + current.totalCost + " heruistic: " + current.heurisitc);
+                Console.WriteLine(" City name: " + current.cityName + " total cost: " + current.totalCost + " heruistic: " + current.heurisitc);
                 current = current.cameFrom;
             }
 
-            Console.WriteLine("City name: " + current.cityName + " total cost: " + current.totalCost + " heruistic: " + current.heurisitc);
+            Console.WriteLine(" City name: " + current.cityName + " total cost: " + current.totalCost + " heruistic: " + current.heurisitc);
 
 
             graph.Clean();
@@ -38,17 +38,17 @@ namespace AI_Lab2
             Console.WriteLine();
 
             
-            Console.WriteLine("Results of Astar:");
+            Console.WriteLine(" Results of Astar:");
 
 
             current = graph.Destination;
             while(current.cameFrom != current)
             {
-                Console.WriteLine("City name: " + current.cityName + " total cost: " + current.totalCost + " heruistic: " + current.heurisitc);
+                Console.WriteLine(" City name: " + current.cityName + " total cost: " + current.totalCost + " heruistic: " + current.heurisitc);
                 current = current.cameFrom;
             }
 
-            Console.WriteLine("City name: " + current.cityName + " total cost: " + current.totalCost + " heruistic: " + current.heurisitc);
+            Console.WriteLine(" City name: " + current.cityName + " total cost: " + current.totalCost + " heruistic: " + current.heurisitc);
 
 
 
@@ -94,20 +94,23 @@ namespace AI_Lab2
 
                 while( (line = stream.ReadLine()) != null)
                 {
+                    Console.WriteLine(line);
+
                     
                     words = line.Split(" ");
+
                     if(words.Length == 3)
                     {
                         e = new Edge() { Cost = Int32.Parse(words[2])};
                         temp = g.listOfNodes.Find(x => x.cityName == words[0]);
                         e.Nodes.Add(temp);
                         temp.Edges.Add(e);
-                        
+                      
                         temp = g.listOfNodes.Find(x => x.cityName == words[1]);
+                        
                         e.Nodes.Add(temp);
                         temp.Edges.Add(e);
-                        
-                        Console.WriteLine(e.Nodes[1].cityName + " " + e.Nodes[0].cityName + " " + e.Cost); 
+                        Console.WriteLine(e.Nodes[0].cityName + " " + e.Nodes[1].cityName + " " + e.Cost); 
                     }
                 }
             }

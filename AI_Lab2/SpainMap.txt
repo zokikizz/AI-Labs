@@ -76,7 +76,7 @@ Valencia Alicante 166
 Valencia Castellon 74
 Valencia Cuenca 199
 Castellon Tarragona 187
-Castellon	Teruel 144
+Castellon Teruel 144
 Teruel Cuenca 148
 Teruel Zaragoza 171
 Tarragona Barcelona 99
@@ -102,7 +102,7 @@ Madrid Avila 109
 Madrid Caceres 301
 Madrid Toledo 72
 Salamanca Avila 109
-Salamanca Caceres 202 
+Salamanca Caceres 202
 Salamanca Zamora 66
 Avila Segovia 66
 Valladolid Segovia 115
