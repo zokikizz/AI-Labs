@@ -29,6 +29,8 @@ namespace CustomObjects
     {
         public List<Location> listOfCities { get; set; }
 
+        public double probability;
+
         public double fitness { get; set; }
 
         public Trevel() { 
@@ -37,14 +39,20 @@ namespace CustomObjects
         }
 
 
-        public void calculateFitness()
+        public double calculateFitness(Location startAndEnd)
         {
             this.fitness = 0;
-            for(int i = 0; i < listOfCities.Count; i++)
+            this.fitness +=  Math.Sqrt(Math.Pow(startAndEnd.X - listOfCities[0].X,2) 
+                + Math.Pow(startAndEnd.Y - listOfCities[0].Y,2));
+            for(int i = 0; i < listOfCities.Count-1; i++)
             {
                 this.fitness += Math.Sqrt(Math.Pow(listOfCities[i].X - listOfCities[i+1].X,2) 
                 + Math.Pow(listOfCities[i].Y - listOfCities[i+1].Y,2));
             }
+
+
+            return (this.fitness +=  Math.Sqrt(Math.Pow(listOfCities[listOfCities.Count-1].X - startAndEnd.X,2) 
+                + Math.Pow(listOfCities[listOfCities.Count-1].Y - startAndEnd.Y,2)));
         }
 
 
@@ -64,7 +72,7 @@ namespace CustomObjects
                 listOfLocations  += (++i).ToString() + ".   " + el.ToString() + "\n";
             }
 
-            return listOfLocations;
+            return "fittness: " + this.fitness + "\n" +listOfLocations;
         }
 
     }
@@ -81,30 +89,30 @@ namespace CustomObjects
         }
 
 
-        public Generation(List<Trevel> Population, int maxInOnPopulation)
+        public Generation(List<Trevel> Population)
         {
             this.population = Population;
         }
 
-        public Trevel getTheFittestIndiviual()
-        {
-            if( this.population.Count > 0)
-            {
-                Trevel theFittest = this.population[0];
+        // public Trevel getTheFittestIndiviual()
+        // {
+        //     if( this.population.Count > 0)
+        //     {
+        //         Trevel theFittest = this.population[0];
 
-                for(int i = 1; i < this.population.Count; i++)
-                {
-                    if(theFittest.fitness > this.population[i].fitness)
-                    {
-                        theFittest = this.population[i];
-                    }
-                }
+        //         for(int i = 1; i < this.population.Count; i++)
+        //         {
+        //             if(theFittest.fitness > this.population[i].fitness)
+        //             {
+        //                 theFittest = this.population[i];
+        //             }
+        //         }
 
-                return theFittest;
-            }
+        //         return theFittest;
+        //     }
             
-            return null;
-        }
+        //     return null;
+        // }
     }
 
     // TSP => trevel sellman problem
@@ -112,13 +120,15 @@ namespace CustomObjects
     {
         private Trevel places;
 
+        Trevel theBest = null;
+
         private Location start;
         public List<Generation> Generations { get; set; }
 
 
         public int MaxInOneGeneration { get; set; }
 
-        public int MaxGeneration { get; set; }
+        public int MaxGenerations { get; set; }
 
         public GenericAlgorithmForTSP(int maxgeneration, int maxInOneGeneration, Trevel listOfCities, Location s) 
         {
@@ -126,7 +136,7 @@ namespace CustomObjects
 
             this.MaxInOneGeneration = maxInOneGeneration;
         
-            this.MaxGeneration = maxgeneration;
+            this.MaxGenerations = maxgeneration;
 
             this.places = listOfCities;
 
@@ -187,7 +197,37 @@ namespace CustomObjects
 
         public void ExecuteAlgorithm()
         {
+            this.generateFirstgeneration();
 
+            for(int step = 0; step < this.MaxGenerations; step++)
+            {
+
+                Selection(step);
+
+
+                //start of crossovers
+                int currentBaseForCrossover = 0;
+                for(int times = 0; times < 4; times++)
+                {
+                    for(int i = currentBaseForCrossover; i < 5; i++)
+                    {
+                        this.Generations[step+1].population.Add(
+                            this.crossOver(this.Generations[step].population[currentBaseForCrossover], this.Generations[step].population[i]));
+                    }
+
+                    currentBaseForCrossover++;
+
+                }
+
+                //end crossovers
+
+
+                //mutate
+                for(int current = 0; current < this.Generations[step+1].population.Count; current++)
+                {
+                    this.Mutate(this.Generations[step+1].population[current]);
+                }   
+            }
         }
 
 
@@ -201,7 +241,7 @@ namespace CustomObjects
             int second = (int)(rand.NextDouble()*individual.listOfCities.Count);
 
 
-            Console.WriteLine("Start: " + first + " end: " + second);
+            // Console.WriteLine("Start: " + first + " end: " + second);
 
             while(first == second)
             {
@@ -270,9 +310,52 @@ namespace CustomObjects
 
         }
 
-        public void FindFitnesInGeneration()
+        public void Selection(int numberOfGeneration) 
         {
 
+            //we will create new generation
+            Generation newGeneration = new Generation();
+
+            List<Trevel> currentPopulation = this.Generations[numberOfGeneration].population;
+
+            double totalFitness = 0;
+            //calculate fitness for every indiviual
+            foreach(Trevel trevel in currentPopulation)
+            {
+                totalFitness += trevel.calculateFitness(this.start);
+            }
+
+            //calculate probability
+            foreach(Trevel temp in currentPopulation)
+            {
+                temp.probability = temp.fitness/totalFitness; 
+            }
+
+            //now sort by fitness and save first five
+            currentPopulation.Sort((x,y) => (int)(x.fitness - y.fitness));
+            if((this.theBest == null) || (this.theBest.fitness > currentPopulation[0].fitness))
+            {
+               if(this.theBest == null)
+                {
+                    Console.WriteLine("First generation best fittnes:" + currentPopulation[0].fitness);
+                }
+                this.theBest = currentPopulation[0];
+            //    Console.WriteLine(this.theBest.fitness + " new: " + currentPopulation[0].fitness);
+            }
+
+          //  Console.WriteLine("Fitness for " + numberOfGeneration + ". generation is:" + currentPopulation[0].fitness);
+            for(int i = 0; i < 5; i++)
+                newGeneration.population.Add(currentPopulation[i]);
+
+            this.Generations.Add(newGeneration);
+
+        }
+
+        public void printTheBest()
+        {
+            Console.WriteLine();
+            Console.WriteLine("The best trevel is:");
+            Console.WriteLine(this.theBest);
         }
 
     }
