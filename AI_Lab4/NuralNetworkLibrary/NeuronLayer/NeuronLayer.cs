@@ -15,6 +15,8 @@ namespace AI_Lab4.NuralNetworkLibrary.NeuronLayerNamespace
         public NeuronLayer()
         {
             this.listOfNeurons = new List<SimpleNeuron>();
+            this.IsItFirstLayer = false;
+            this.IsItLast = false;
         }
         public void addNeuron(SimpleNeuron newNeuron)
         {
@@ -25,7 +27,7 @@ namespace AI_Lab4.NuralNetworkLibrary.NeuronLayerNamespace
         {
             ISynapse temp;
                 
-            if(!inputLayer.IsItFirstLayer)
+            if(!this.IsItFirstLayer)
             {
                 foreach(SimpleNeuron inputNeuron in inputLayer.listOfNeurons)
                     foreach(SimpleNeuron current in this.listOfNeurons)
@@ -38,6 +40,13 @@ namespace AI_Lab4.NuralNetworkLibrary.NeuronLayerNamespace
             else
             {
                 //for first layer think
+
+                foreach(SimpleNeuron current in this.listOfNeurons)
+                {
+                    temp = new InputSynapse(current);
+                    current.listOfInputs.Add(temp);
+                }
+                
             }
         }
     }

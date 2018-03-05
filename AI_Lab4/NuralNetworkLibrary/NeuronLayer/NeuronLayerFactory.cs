@@ -7,7 +7,7 @@ namespace AI_Lab4.NuralNetworkLibrary.NeuronLayerNamespace
     public class NeuronLayerFactory
     {
         
-        public NeuronLayer CreateLayer(int numberOfNeuronsInLayer, IActivationFunction activationFunction, IInputFunction inputFunction)
+        public static NeuronLayer CreateLayer(int numberOfNeuronsInLayer, IActivationFunction activationFunction, IInputFunction inputFunction)
         {
 
             NeuronLayer temp = new NeuronLayer();
