@@ -9,18 +9,67 @@ using AI_Lab4.NuralNetworkLibrary.Synapse;
 
 namespace AI_Lab4.NuralNetworkLibrary
 {
+
+    /// first layer in list of layers is input layer and the last is output layer which contain just one neuron !!!
     public class NuralNetwork
     {
         double learningRate { get; set; }
-        double [] inputs;
-        double output;
 
         public List<NeuronLayer> listOfLayers;
 
-
-        public void Train()
+        public NuralNetwork()
         {
+            this.listOfLayers = new List<NeuronLayer>();
+            learningRate = 0.2;
+        }
 
+
+        public void Train(List<double> inputValues, double target)
+        { 
+            if(inputValues.Count == this.listOfLayers.First().listOfNeurons.Count)
+            {
+                SetUpInputValues(inputValues);
+
+                Execute();
+
+                BackpropagationForOutputLayer(target);
+            }
+            else
+            {
+                Console.WriteLine("Error,");
+            }
+
+        }
+
+        public void SetUpInputValues(List<double> input)
+        {
+            if(input.Count == this.listOfLayers.First().listOfNeurons.Count)
+            {
+                for(int i=0; i < input.Count; i++)
+                {
+                    this.listOfLayers.First().listOfNeurons[0].listOfInputs[i].Input = input[i];
+                }
+            }
+            else
+            {
+                Console.WriteLine("Error");
+            }
+        }
+
+        public void Execute()
+        {
+            foreach(NeuronLayer layer in this.listOfLayers)
+            {
+                foreach(SimpleNeuron neuron in layer.listOfNeurons)
+                {
+                    neuron.CalculateOutput();
+                }
+            }
+        }
+
+        public double getOutput()
+        {
+            return this.listOfLayers.Last().listOfNeurons.First().Output;
         }
 
         public void createNewLayer(int numberOfNeurons, IActivationFunction activation, IInputFunction input)

@@ -27,6 +27,12 @@ namespace AI_Lab4.NuralNetworkLibrary.Neuron
         public void CalculateOutput()
         {
             this.Output = this.activationFunction.calculateOutput(this.inputFunction.calculateInput(this.listOfInputs));
+
+            //to say what is output to others
+            foreach(ISynapse s in this.listOfOutputs)
+            {
+                s.Input = this.Output;
+            }
         }
 
     }
