@@ -1,0 +1,10 @@
+/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab4/bin/Debug/netcoreapp2.0/AI_Lab4.deps.json
+/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab4/bin/Debug/netcoreapp2.0/AI_Lab4.runtimeconfig.json
+/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab4/bin/Debug/netcoreapp2.0/AI_Lab4.runtimeconfig.dev.json
+/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab4/bin/Debug/netcoreapp2.0/AI_Lab4.dll
+/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab4/bin/Debug/netcoreapp2.0/AI_Lab4.pdb
+/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab4/obj/Debug/netcoreapp2.0/AI_Lab4.csproj.CoreCompileInputs.cache
+/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab4/obj/Debug/netcoreapp2.0/AI_Lab4.AssemblyInfoInputs.cache
+/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab4/obj/Debug/netcoreapp2.0/AI_Lab4.AssemblyInfo.cs
+/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab4/obj/Debug/netcoreapp2.0/AI_Lab4.dll
+/home/kizz/Desktop/AI Labs/AI-Labs/AI_Lab4/obj/Debug/netcoreapp2.0/AI_Lab4.pdb

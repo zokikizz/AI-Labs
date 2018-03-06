@@ -22,7 +22,7 @@ namespace AI_Lab4.NuralNetworkLibrary.Neuron
             this.inputFunction = inpFun;
 
             this.listOfOutputs = new List<ISynapse>();
-            this.listOfOutputs = new List<ISynapse>();
+            this.listOfInputs = new List<ISynapse>();
         }
         public void CalculateOutput()
         {

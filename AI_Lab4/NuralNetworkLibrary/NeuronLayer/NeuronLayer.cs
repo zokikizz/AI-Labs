@@ -41,11 +41,12 @@ namespace AI_Lab4.NuralNetworkLibrary.NeuronLayerNamespace
             {
                 //for first layer think
 
-                foreach(SimpleNeuron current in this.listOfNeurons)
-                {
-                    temp = new InputSynapse(current);
-                    current.listOfInputs.Add(temp);
-                }
+                for(int i = 0; i < this.listOfNeurons.Count; i++)
+                    foreach(SimpleNeuron current in this.listOfNeurons)
+                    {
+                        temp = new InputSynapse(current);
+                        current.listOfInputs.Add(temp);
+                    }
                 
             }
         }

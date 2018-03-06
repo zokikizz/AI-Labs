@@ -24,7 +24,7 @@ namespace AI_Lab4.NuralNetworkLibrary
         }
 
 
-        public void Train(List<double> inputValues, double target)
+        public void Trening(List<double> inputValues, double target)
         { 
             if(inputValues.Count == this.listOfLayers.First().listOfNeurons.Count)
             {
@@ -33,6 +33,8 @@ namespace AI_Lab4.NuralNetworkLibrary
                 Execute();
 
                 BackpropagationForOutputLayer(target);
+
+
             }
             else
             {
@@ -47,7 +49,10 @@ namespace AI_Lab4.NuralNetworkLibrary
             {
                 for(int i=0; i < input.Count; i++)
                 {
-                    this.listOfLayers.First().listOfNeurons[0].listOfInputs[i].Input = input[i];
+                    foreach(SimpleNeuron n in this.listOfLayers.First().listOfNeurons)
+                    {
+                        n.listOfInputs[i].Input = input[i];
+                    }
                 }
             }
             else
@@ -93,15 +98,15 @@ namespace AI_Lab4.NuralNetworkLibrary
             this.listOfLayers.Add(layer);
         }
 
-        public void BackpropagationForHiddenLayer(NeuronLayer currentLayer, int layerNumber)
+        public void BackpropagationForHiddenLayer(NeuronLayer currentLayer, int currentLayerNumber)
         {
 
             List<SimpleNeuron> listOfHiddenNeurons = null; 
-            if(!currentLayer.IsItFirstLayer)
-                listOfHiddenNeurons = currentLayer.listOfNeurons;
+           // if(!currentLayer.IsItFirstLayer)
+            listOfHiddenNeurons = currentLayer.listOfNeurons;
 
             //calculating sigma for every neuron
-            int i = 0;
+            //int i = 0;
             foreach(INeuron current in listOfHiddenNeurons)
             {
                 current.Sigma = current.Output * ( 1 - current.Output);
@@ -142,17 +147,19 @@ namespace AI_Lab4.NuralNetworkLibrary
                     }
                 }
 
-                if(nextLayer == null && (layerNumber-1) < 0)
+                nextLayer = this.listOfLayers[currentLayerNumber-1];
+
+                if((nextLayer == null) || currentLayer.IsItFirstLayer)
                 {
                     Console.WriteLine("There is no next layer. " );
-                    if((layerNumber-1) < 0)
+                    if((currentLayerNumber-1) < 0)
                     {
                         Console.WriteLine("End.");
                     }
                     return;
                 }
 
-                this.BackpropagationForHiddenLayer(nextLayer, layerNumber - 1);
+                this.BackpropagationForHiddenLayer(nextLayer, currentLayerNumber - 1);
             }
 
 
@@ -201,10 +208,10 @@ namespace AI_Lab4.NuralNetworkLibrary
             }
             else
             {
-                underLayer = this.listOfLayers[this.listOfLayers.Count -2];
+                underLayer = this.listOfLayers[this.listOfLayers.Count - 2];
             }
 
-            BackpropagationForHiddenLayer(underLayer, this.listOfLayers.Count -2);
+            BackpropagationForHiddenLayer(underLayer, this.listOfLayers.Count - 2);
         }
 
         private NeuronLayer findUnderLayer(ISynapse synapse)
