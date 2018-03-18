@@ -3,8 +3,7 @@ import numpy as np
 import NeuronNetworkLibrary.test_neuralNetwork as anntest
 import NeuronNetworkLibrary.NeuralNetwork as ann
 import matplotlib.pyplot as plt
-
-
+from matplotlib.gridspec import GridSpec
 
 ann_test_names = [
     "test_create_NeuronNetwork",
@@ -89,8 +88,10 @@ if __name__ == '__main__':
         if gues == shouldBe:
             correct = correct + 1
 
-    print(float(correct)/700)
-    print(ann_survived/survived)
+    print("Correct: " + str(float(correct)/700 * 100) + " % Missed: " + str(float(700-correct)/700 * 100) + " %")
+    print(survived)
+    print(ann_survived)
+    print("Correctness of survived: " + str(ann_survived/survived * 100) + " %")
 
     t = [1, 2, 3]
     s = [1, 2, 3]
@@ -101,9 +102,17 @@ if __name__ == '__main__':
     plt.title('Naslov')
     plt.grid(True)
     plt.savefig("test.png")
+    # plt.show()
+
+    # pie
+    plt.xlabel('Correctness of AAN')
+    plt.ylabel('')
+    plt.title('')
+    labels = ["Correct", "Missed"]
+    fracs = [correct/700, (700-correct)/700]
+
+    explode = (0, 0.05, 0, 0)
+
+    plt.pie(fracs, labels=labels, autopct='%.0f%%', shadow=True, radius=0.5)
+
     plt.show()
-
-
-
-
-
