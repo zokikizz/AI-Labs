@@ -1,0 +1,2 @@
+Install some version of python 3 and run this project with command 'python3 ./main.py'.
+Read more about problem in Assignment 4.pdf.
