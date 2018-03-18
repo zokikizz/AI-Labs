@@ -2,6 +2,9 @@ import unittest
 import numpy as np
 import NeuronNetworkLibrary.test_neuralNetwork as anntest
 import NeuronNetworkLibrary.NeuralNetwork as ann
+import matplotlib.pyplot as plt
+
+
 
 ann_test_names = [
     "test_create_NeuronNetwork",
@@ -38,16 +41,24 @@ def read_from_file(fileName):
 
 
 if __name__ == '__main__':
-    runner = unittest.TextTestRunner()
-    runner.run(suite())
 
+    # runner = unittest.TextTestRunner()
+    # runner.run(suite())
+    #
+    errors = []
+    y = []
+    x = []
     np.random.seed(0)
 
     net = ann.NeuralNetwork(4, [3, 3, 2, 1])
     inputs, targets = read_from_file('data.dat')
     for j in range(50):
+        x.append(j)
         for i in range(1500):
             net.trening(inputs[i], targets[i][0])
+            errors.append(net.get_output()[0] - targets[i][0])
+        y.append(sum(errors) / len(errors))
+        errors = []
 
     correct = 0
     survived = 0
@@ -80,4 +91,19 @@ if __name__ == '__main__':
 
     print(float(correct)/700)
     print(ann_survived/survived)
+
+    t = [1, 2, 3]
+    s = [1, 2, 3]
+    plt.plot(x, y)
+
+    plt.xlabel('epoha')
+    plt.ylabel('Average error')
+    plt.title('Naslov')
+    plt.grid(True)
+    plt.savefig("test.png")
+    plt.show()
+
+
+
+
 
