@@ -1,2 +1,2 @@
-Install some version of python 3 and run this project with command 'python3 ./main.py'.
+Install some version of python 3 and run this project with command 'python3 ./main.py'. There is no bias in this neural network add it!
 Read more about problem in Assignment 4.pdf.
